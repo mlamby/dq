@@ -12,10 +12,10 @@ def query(query_str, source):
 
         returns the results of the query.
     """
-    return compile(query_str)(source)
+    return compiled(query_str)(source)
 
 
-def compile(query_str):
+def compiled(query_str):
     """ Compile the given query string into a compiled query
     """
     return CompiledQuery(query_str)

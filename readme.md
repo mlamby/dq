@@ -82,8 +82,8 @@ Compiled Queries
 When using the same query string repeatedly a CompiledQuery can be constructed
 to prevent parsing the query string multiple times:
 ```python
->>> from dq import compile
->>> query = compile('[1]')
+>>> from dq import compiled
+>>> query = compiled('[1]')
 >>> query([1,2,3,4])
 2
 >>> query([5,6,7,8])
