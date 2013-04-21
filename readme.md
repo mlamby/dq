@@ -31,12 +31,13 @@ is selected to allow for simple structural querying of data - no filters or
 expressions. This keeps the parser nice and simple, and since its a Python
 library you have the full power of Python to perform complex filters.
 
-The query language supports the following syntax:
-    .key - Returns the given key from the dict
-    ..key - Returns the given key from any descendant dictionary 
-    [index] - Returns an item from a list at the specified index
-    [*] - Returns all items in a list
-    [start:stop:step] - Performs a python slice operation on a list
+The query language supports the following path syntax:
+
+    - .key - Returns the given key from the dict
+    - ..key - Returns the given key from any descendant dictionary 
+    - [index] - Returns an item from a list at the specified index
+    - [*] - Returns all items in a list
+    - [start:stop:step] - Performs a python slice operation on a list
 
 Query Examples
 --------------
@@ -86,10 +87,10 @@ When using the same query string repeatedly a CompiledQuery can be constructed
 to prevent parsing the query string multiple times:
 
 ```python
-    >>> from dq import compile
-    >>> query = compile('[1]')
-    >>> query([1,2,3,4])
-    2
-    >>> query([5,6,7,8])
-    6
+>>> from dq import compile
+>>> query = compile('[1]')
+>>> query([1,2,3,4])
+2
+>>> query([5,6,7,8])
+6
 ```
