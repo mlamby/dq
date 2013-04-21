@@ -4,7 +4,6 @@ Provides the ability to query a data source made up of any combination
 of lists and dicts.
 
 To use from within Python:
-
 ```python
 >>> from dq import query
 >>> dq.query('[0].name', [{'name': 'michael'}, {'name': 'jane'}])
@@ -13,15 +12,12 @@ To use from within Python:
 >>> dq.query('..name', [{'name': 'michael'}, {'name': 'jane'}])
 ['michael', 'jane']
 ```
-
 Installation
 ------------
 To install dq:
-
 ```
 pip install dq
 ```
-
 dq does not depend on any non-standard libraries
 
 Query Language
@@ -32,17 +28,17 @@ expressions. This keeps the parser nice and simple, and since its a Python
 library you have the full power of Python to perform complex filters.
 
 The query language supports the following path syntax:
-
-    - .key - Returns the given key from the dict
-    - ..key - Returns the given key from any descendant dictionary 
-    - [index] - Returns an item from a list at the specified index
-    - [*] - Returns all items in a list
-    - [start:stop:step] - Performs a python slice operation on a list
+```
+.key - Returns the given key from the dict
+..key - Returns the given key from any descendant dictionary 
+[index] - Returns an item from a list at the specified index
+[*] - Returns all items in a list
+[start:stop:step] - Performs a python slice operation on a list
+```
 
 Query Examples
 --------------
 These syntax items can be combined to build complex queries.
-
 ```python
 >>> from dq import query
 >>> d = {}
@@ -85,7 +81,6 @@ Compiled Queries
 ----------------
 When using the same query string repeatedly a CompiledQuery can be constructed
 to prevent parsing the query string multiple times:
-
 ```python
 >>> from dq import compile
 >>> query = compile('[1]')
