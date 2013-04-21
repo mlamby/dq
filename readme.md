@@ -6,19 +6,21 @@ of lists and dicts.
 To use from within Python:
 
 ```python
-  >>> from dq import query
-  >>> dq.query('[0].name', [{'name': 'michael'}, {'name': 'jane'}])
-  'michael' 
-  
-  >>> dq.query('..name', [{'name': 'michael'}, {'name': 'jane'}])
-  ['michael', 'jane']
+>>> from dq import query
+>>> dq.query('[0].name', [{'name': 'michael'}, {'name': 'jane'}])
+'michael' 
+
+>>> dq.query('..name', [{'name': 'michael'}, {'name': 'jane'}])
+['michael', 'jane']
 ```
 
 Installation
 ------------
 To install dq:
 
-  pip install dq
+```
+pip install dq
+```
 
 dq does not depend on any non-standard libraries
 
@@ -41,41 +43,41 @@ Query Examples
 These syntax items can be combined to build complex queries.
 
 ```python
-    >>> from dq import query
-    >>> d = {}
-    >>> d['one'] = 1
-    >>> d['two'] = [1,2,3,4,5,6,7,8,9,10]
-    >>> d['three'] = [{'name': 'john'}, {'name': 'mary'}, {'one': 'guy'}]
+>>> from dq import query
+>>> d = {}
+>>> d['one'] = 1
+>>> d['two'] = [1,2,3,4,5,6,7,8,9,10]
+>>> d['three'] = [{'name': 'john'}, {'name': 'mary'}, {'one': 'guy'}]
 
-    >>> query('.one', d)
-    1
+>>> query('.one', d)
+1
 
-    >>> query('.two', d)
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>> query('.two', d)
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    >>> query('.two[1]', d)
-    2
+>>> query('.two[1]', d)
+2
 
-    >>> query('.two[*]', d)
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>> query('.two[*]', d)
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    >>> query('.two[2:-2]', d)
-    [3, 4, 5, 6, 7, 8]
+>>> query('.two[2:-2]', d)
+[3, 4, 5, 6, 7, 8]
 
-    >>> query('.two[1:6:2]', d)
-    [2, 4, 6]
+>>> query('.two[1:6:2]', d)
+[2, 4, 6]
 
-    >>> query('.three[1].name', d)
-    'mary'
+>>> query('.three[1].name', d)
+'mary'
 
-    >>> query('.three[*].name', d)
-    ['john', 'mary']
+>>> query('.three[*].name', d)
+['john', 'mary']
 
-    >>> query('..name', d)
-    ['john', 'mary']
+>>> query('..name', d)
+['john', 'mary']
 
-    >>> query('..one', d)
-    [1, 'guy']
+>>> query('..one', d)
+[1, 'guy']
 ```
 
 Compiled Queries
