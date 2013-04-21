@@ -89,3 +89,10 @@ to prevent parsing the query string multiple times:
 >>> query([5,6,7,8])
 6
 ```
+
+Thanks
+-------
+This library is based on the ideas and code from [python-jsonpath-rw][2].
+
+[1]: http://goessner.net/articles/JsonPath/ "Json Path"
+[2]: https://github.com/kennknowles/python-jsonpath-rw "python-jsonpath-rw"
