@@ -94,5 +94,9 @@ Thanks
 -------
 This library is based on the ideas and code from [python-jsonpath-rw][2].
 
+Copyright
+---------
+Copyright (c) 2013 Michael Lamb. See LICENSE.txt for details.
+
 [1]: http://goessner.net/articles/JsonPath/ "Json Path"
 [2]: https://github.com/kennknowles/python-jsonpath-rw "python-jsonpath-rw"
