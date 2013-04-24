@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Dq by mlamby</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Dq</h1>
+        <p class="header">Simple Python Data Queries</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/mlamby/dq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/mlamby/dq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/mlamby/dq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/mlamby">mlamby</a></p>
+
+
+      </header>
+      <section>
+        <h1>dq.py - Python DataQuery</h1>
+
+<p>Provides the ability to query a data source made up of any combination
+of lists and dicts.</p>
+
+<p>To use from within Python:</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">dq</span> <span class="kn">import</span> <span class="n">query</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dq</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">'[0].name'</span><span class="p">,</span> <span class="p">[{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'michael'</span><span class="p">},</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'jane'</span><span class="p">}])</span>
+<span class="s">'michael'</span> 
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dq</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">'..name'</span><span class="p">,</span> <span class="p">[{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'michael'</span><span class="p">},</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'jane'</span><span class="p">}])</span>
+<span class="p">[</span><span class="s">'michael'</span><span class="p">,</span> <span class="s">'jane'</span><span class="p">]</span>
+</pre></div>
+
+<h2>Installation</h2>
+
+<p>To install dq:</p>
+
+<pre><code>pip install dq
+</code></pre>
+
+<p>dq does not depend on any non-standard libraries</p>
+
+<h2>Query Language</h2>
+
+<p>The query language is a much simplified version of <a href="http://goessner.net/articles/JsonPath/" title="Json Path">json path</a>. The subset
+is selected to allow for simple structural querying of data - no filters or 
+expressions. This keeps the parser nice and simple, and since its a Python
+library you have the full power of Python to perform complex filters.</p>
+
+<p>The query language supports the following path syntax:</p>
+
+<pre><code>.key - Returns the given key from the dict
+..key - Returns the given key from any descendant dictionary 
+[index] - Returns an item from a list at the specified index
+[*] - Returns all items in a list
+[start:stop:step] - Performs a python slice operation on a list
+</code></pre>
+
+<h2>Query Examples</h2>
+
+<p>These syntax items can be combined to build complex queries.</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">dq</span> <span class="kn">import</span> <span class="n">query</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'john'</span><span class="p">},</span> <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'mary'</span><span class="p">},</span> <span class="p">{</span><span class="s">'one'</span><span class="p">:</span> <span class="s">'guy'</span><span class="p">}]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.one'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="mi">1</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.two'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.two[1]'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="mi">2</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.two[*]'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.two[2:-2]'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.two[1:6:2]'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.three[1].name'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="s">'mary'</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'.three[*].name'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="s">'john'</span><span class="p">,</span> <span class="s">'mary'</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'..name'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="s">'john'</span><span class="p">,</span> <span class="s">'mary'</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">(</span><span class="s">'..one'</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">'guy'</span><span class="p">]</span>
+</pre></div>
+
+<h2>Compiled Queries</h2>
+
+<p>When using the same query string repeatedly a CompiledQuery can be constructed
+to prevent parsing the query string multiple times:</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">dq</span> <span class="kn">import</span> <span class="n">compiled</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="n">compiled</span><span class="p">(</span><span class="s">'[1]'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="mi">6</span>
+</pre></div>
+
+<h2>Thanks</h2>
+
+<p>This library is based on the ideas and code from <a href="https://github.com/kennknowles/python-jsonpath-rw" title="python-jsonpath-rw">python-jsonpath-rw</a>.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright (c) 2013 Michael Lamb. See LICENSE.txt for details.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
