@@ -1,7 +1,7 @@
 dq.py - Python DataQuery
 =========================
 Provides the ability to query a data source made up of any combination
-of lists and dicts.
+of lists and dicts, using a simple [json path][1] based syntax.
 
 To use from within Python:
 ```python
